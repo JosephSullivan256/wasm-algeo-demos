@@ -1,16 +1,19 @@
-import * as wasm from "wasm-algeo-demos";
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-class Demo {
+export default class Renderer3D {
 
-	constructor() {
-		this.canvas = document.getElementById('canvas');
-		this.renderer = new THREE.WebGLRenderer({canvas});
+	constructor(parentElement) {
+		this.renderer = new THREE.WebGLRenderer();
 		this.renderer.setClearColor( 0xffffff, 1 );
+		const width = 400;
+		const height = 400;
+		this.renderer.setSize(400, 400);
+
+		parentElement.appendChild(this.renderer.domElement);
 	
 		const fov = 75;
-		const aspect = this.canvas.width/this.canvas.height;
+		const aspect = width/height;
 		const near = 0.1;
 		const far = 5;
 		this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
@@ -37,7 +40,7 @@ class Demo {
 		this.scene.add(new THREE.ArrowHelper(iv, origin, length, 0xff0000, headLength, headWidth));
 		this.scene.add(new THREE.ArrowHelper(jv, origin, length, 0x00ff00, headLength, headWidth));
 		this.scene.add(new THREE.ArrowHelper(kv, origin, length, 0x0000ff, headLength, headWidth));
-	
+		
 		this.step();
 	}
 
@@ -47,13 +50,10 @@ class Demo {
 		this.controls.update();
 		this.renderer.render(this.scene, this.camera);
 	}
+
+	// is this enough? answer = no, if you spam create demo you'll get some problems
+	dispose() {
+		// this.scene.dispose();
+		this.renderer.dispose();
+	}
 }
-
-function main() {
-	//wasm.greet();
-	new Demo();
-}
-
-
-
-main();

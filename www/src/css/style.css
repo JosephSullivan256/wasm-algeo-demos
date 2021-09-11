@@ -1,0 +1,22 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
+
+main {
+  margin: auto;
+  padding: 0px;
+  background-color: whitesmoke;
+  max-width: 900px;
+  height: 100%;
+}
+
+section {
+  padding: 10px;
+}
+
+.CodeMirror {
+  border: 1px solid #eee;
+  height: auto;
+}
