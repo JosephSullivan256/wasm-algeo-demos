@@ -24,6 +24,7 @@
   "devDependencies": {
     "codemirror": "^5.62.3",
     "css-loader": "^6.2.0",
+    "raw-loader": "^4.0.2",
     "style-loader": "^3.2.1",
     "three": "^0.132.2",
     "wasm-algeo-demos": "file:../pkg",
