@@ -24,6 +24,7 @@
   "devDependencies": {
     "codemirror": "^5.62.3",
     "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
     "katex": "^0.13.18",
     "raw-loader": "^4.0.2",
     "style-loader": "^3.2.1",
