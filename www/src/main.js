@@ -46,18 +46,18 @@ class Main {
 				()=>this.createDemo()
 			);
 		// set context div
-		this.contextDiv = document.getElementById("context");
+		let contextDiv = document.getElementById("context");
+		this.context = new Context(contextDiv);
 	}
 
 	createDemo() {
-		this.contextDiv.innerHTML = "";
-		let context = new Context(this.contextDiv);
+		this.context.reset();
 		
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!
 		Function(
 			'ctx', '"use strict";' + this.codeMirror.getValue()
-		)(context);
-		
+		)(this.context);
+
 	}
 }
 
