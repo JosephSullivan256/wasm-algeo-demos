@@ -2,7 +2,7 @@ import katex from 'katex';
 import '../../node_modules/katex/dist/katex.css';
 
 export default class LatexDisplay {
-	
+
 	constructor() {
 		this.elt = document.createElement("div");
 	}

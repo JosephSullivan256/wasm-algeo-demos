@@ -24,7 +24,7 @@ class Main {
 
 	initWasm() {
 		// pass properties from wasm to the window so that things are useable in the CodeMirror
-		for(let property in wasm) window[property]=wasm[property];
+		for (let property in wasm) window[property] = wasm[property];
 	}
 
 	initDOM() {
@@ -33,7 +33,7 @@ class Main {
 			document.getElementById("codeMirror"),
 			{
 				value: default_contents,
-				mode:  "javascript",
+				mode: "javascript",
 				theme: "default",
 				viewportMargin: Infinity,
 			}
@@ -43,7 +43,7 @@ class Main {
 			.getElementById("createDemo")
 			.addEventListener(
 				"click",
-				()=>this.createDemo()
+				() => this.createDemo()
 			);
 		// set context div
 		let contextDiv = document.getElementById("context");
@@ -52,7 +52,7 @@ class Main {
 
 	createDemo() {
 		this.context.reset();
-		
+
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!
 		Function(
 			'ctx', '"use strict";' + this.codeMirror.getValue()

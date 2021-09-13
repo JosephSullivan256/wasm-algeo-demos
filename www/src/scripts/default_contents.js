@@ -10,10 +10,10 @@ let disp1 = ctx.addLatexDisplay();
 let rend = ctx.addRenderer3D();
 
 // set "run" method
-ctx.setRun(()=>{
+ctx.setRun(() => {
 	// create polynomial x^n
 	// let poly = Poly("x").pow(n());
 
-	disp1.displayLatex("\\frac{1}{" + n() + "}");
+	disp1.displayLatex(String.raw`\int_0^{${n()}} f(x) \;\mathrm{d}x`);
 	// rend.display(poly);
 })

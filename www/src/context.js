@@ -9,7 +9,7 @@ export default class Context {
 	constructor(contextDiv) {
 		this.contextDiv = contextDiv;
 		this.disposables = [];
-		this.run = ()=>{};
+		this.run = () => { };
 	}
 
 	addSlider(name, value, lowerBound, upperBound, step) {
@@ -18,7 +18,7 @@ export default class Context {
 			.max(upperBound)
 			.step(step)
 			.value(value);
-		
+
 		let div = document.createElement("div");
 		let title = document.createElement("p");
 		title.innerHTML = name;
@@ -28,9 +28,9 @@ export default class Context {
 
 		this.contextDiv.appendChild(div)
 
-		scrubber.onValueChanged = (value)=>{this.run()};
+		scrubber.onValueChanged = (value) => { this.run() };
 
-		return ()=>scrubber.value();
+		return () => scrubber.value();
 	}
 
 	addRenderer3D() {
@@ -51,11 +51,11 @@ export default class Context {
 	}
 
 	reset() {
-		for(let d of this.disposables) {
+		for (let d of this.disposables) {
 			d.dispose();
 		}
 		this.disposables = [];
-		this.run = ()=>{};
+		this.run = () => { };
 		this.contextDiv.innerHTML = "";
 	}
 }
