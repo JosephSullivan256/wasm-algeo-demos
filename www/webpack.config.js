@@ -31,6 +31,7 @@ module.exports = {
       directory: path.join(__dirname, 'dist'),
     },
     port: 8080,
+    host: '0.0.0.0',
   },
   experiments: {
     asyncWebAssembly: true,

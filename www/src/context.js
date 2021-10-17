@@ -9,7 +9,8 @@ export default class Context {
 	constructor(contextDiv) {
 		this.contextDiv = contextDiv;
 		this.disposables = [];
-		this.run = () => { };
+		this.cleanables  = [];
+		this.run_internal = () => { };
 	}
 
 	addSlider(name, value, lowerBound, upperBound, step) {
@@ -36,6 +37,7 @@ export default class Context {
 	addRenderer3D() {
 		let rend = new Renderer3D(this.contextDiv);
 		this.disposables.push(rend);
+		this.cleanables.push(rend);
 		return rend;
 	}
 
@@ -46,8 +48,20 @@ export default class Context {
 	}
 
 	setRun(lambda) {
-		this.run = lambda;
+		this.run_internal = lambda;
 		this.run();
+	}
+
+	run() {
+		console.log("hi")
+		this.clean();
+		this.run_internal();
+	}
+
+	clean() {
+		for(let c of this.cleanables){
+			c.clean();
+		}
 	}
 
 	reset() {
@@ -55,7 +69,7 @@ export default class Context {
 			d.dispose();
 		}
 		this.disposables = [];
-		this.run = () => { };
+		this.run_internal = () => { };
 		this.contextDiv.innerHTML = "";
 	}
 }

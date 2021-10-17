@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import ImplicitSurface from "./models/implicit_surface";
 
 export default class Renderer3D {
 
@@ -19,7 +20,9 @@ export default class Renderer3D {
 		this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 		// change coordinate system good
 		this.camera.up.set(0, 0, 1);
-		this.camera.position.y = -2;
+		this.camera.position.x = 1;
+		this.camera.position.y = 1;
+		this.camera.position.z = 1;
 
 		this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 		// an animation loop is required when either damping or auto-rotation are enabled
@@ -28,6 +31,32 @@ export default class Renderer3D {
 
 		this.scene = new THREE.Scene();
 
+		this.disposeables = [];
+
+		this.step();
+	}
+
+	addImplicitSurface(f) {
+		let surf = new ImplicitSurface(f);
+		this.scene.add(surf);
+		this.disposeables.push(surf);
+	}
+
+	step() {
+		requestAnimationFrame(() => this.step());
+
+		this.controls.update();
+		this.renderer.render(this.scene, this.camera);
+	}
+
+	clean() {
+		// for(let disposeable of this.disposeables) {
+		// 	disposeable.dispose();
+		// }
+		// this.disposeables = [];
+		this.scene.clear();
+
+		// re-add axes
 		const iv = new THREE.Vector3(1, 0, 0);
 		const jv = new THREE.Vector3(0, 1, 0);
 		const kv = new THREE.Vector3(0, 0, 1);
@@ -41,14 +70,11 @@ export default class Renderer3D {
 		this.scene.add(new THREE.ArrowHelper(jv, origin, length, 0x00ff00, headLength, headWidth));
 		this.scene.add(new THREE.ArrowHelper(kv, origin, length, 0x0000ff, headLength, headWidth));
 
-		this.step();
-	}
+		let dirLight = new THREE.DirectionalLight( 0xffffff );
+		dirLight.position.set( 1, 1, 1 ).normalize();
+		this.scene.add(dirLight);
 
-	step() {
-		requestAnimationFrame(() => this.step());
-
-		this.controls.update();
-		this.renderer.render(this.scene, this.camera);
+		this.scene.add(new THREE.AmbientLight( 0x404040 ));
 	}
 
 	// is this enough? answer = no, if you spam create demo you'll get some problems
